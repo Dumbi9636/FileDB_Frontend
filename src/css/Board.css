@@ -1,0 +1,186 @@
+/* 페이지 전체: 연한 회색 배경 + 가운데 카드 */
+.board-page {
+  padding: 24px 16px 40px;
+}
+
+.board-page__inner {
+  max-width: 1100px;          /* 리스트 폭 줄이기 */
+  margin: 0 auto;
+  background-color: #ffffff;  /* 카드 배경 (실은 흰+회색 계열) */
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+  padding: 20px 24px 24px;
+  border: 1px solid #e5e7eb;
+}
+
+/* 상단 영역: grid 느낌 */
+.board-page__top {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+/* 검색 영역 */
+.board-search {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+
+.board-search__input {
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  padding: 8px 14px;
+  font-size: 14px;
+  outline: none;
+  background-color: #f9fafb;
+}
+
+.board-search__input::placeholder {
+  color: #9ca3af;
+}
+
+.board-search__input:focus {
+  border-color: #9ca3af;
+  background-color: #ffffff;
+}
+
+/* 공통 버튼 (회색 계열만 사용) */
+.board-button {
+  padding: 8px 18px;
+  font-size: 14px;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background-color: #f9fafb;
+  color: #374151;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease,
+    transform 0.05s ease;
+}
+
+.board-button:hover {
+  background-color: #e5e7eb;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.12);
+}
+
+.board-button:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+/* 살짝 더 진한 느낌의 회색 버튼 (새 글 작성 등) */
+.board-button--solid {
+  background-color: #e5e7eb;
+  border-color: #d1d5db;
+}
+
+.board-button--solid:hover {
+  background-color: #d4d4d8;
+}
+
+/* 테이블 래퍼: 가로 스크롤 대비 */
+.board-table-wrapper {
+  margin-top: 4px;
+  overflow-x: auto;
+}
+
+/* 테이블 스타일 */
+.board-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  table-layout: fixed;
+}
+
+.board-table th,
+.board-table td {
+  border: 1px solid #e5e7eb;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.board-table th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+/* 제목 칸은 말줄임 처리 */
+.board-table__title-cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 행 hover 효과 */
+.board-table__row {
+  cursor: pointer;
+  background-color: #ffffff;
+}
+
+.board-table__row:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.board-table__row:hover {
+  background-color: #e5e7eb;
+}
+
+/* 데이터 없을 때 */
+.board-table__empty {
+  text-align: center;
+  padding: 40px 0;
+  color: #9ca3af;
+}
+
+/* 반응형 조금만 */
+@media (max-width: 768px) {
+  .board-page__inner {
+    padding: 16px 16px 20px;
+  }
+
+  .board-page__top {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 페이지네이션 영역 */
+.board-pagination {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;   /* ⬅ 가로 가운데 정렬 */
+  align-items: center;
+  gap: 12px;
+}
+
+/* 현재 페이지 텍스트 */
+.board-pagination__info {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* 비활성 버튼 스타일 */
+.board-button:disabled {
+  background-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* 본문 영역 이미지 공통 스타일 */
+.post-detail__content img {
+  max-width: 100%;     /* 카드 폭 안에서만 */
+  height: auto;        /* 비율 유지하면서 축소 */
+  display: block;
+  margin: 12px 0;
+  border-radius: 8px;
+}
+
+/* 세로도 너무 긴 사진이면 최대 높이 제한하고 싶을 때 */
+.post-detail__content img {
+  max-height: 500px;   /* 500px보다 크면 축소 */
+  object-fit: contain; /* 비율 유지해서 축소 */
+}

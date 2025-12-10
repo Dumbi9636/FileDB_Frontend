@@ -1,0 +1,6 @@
+/* 전체 페이지 배경 회색 */
+body {
+  margin: 0;
+  background-color: #eaebeb;   /* 연회색 */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
