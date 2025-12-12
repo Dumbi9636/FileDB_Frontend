@@ -30,7 +30,18 @@ export const createPost = async (postData) => {
 };
 
 // GET /posts/{id} 단건 조회
-export const fetchPostById = async (id) => {
-  const res = await client.get(`/posts/${id}`);
+export const fetchPostById = async (postId) => {
+  const res = await client.get(`/posts/${postId}`);
   return res.data;
+};
+
+// PUT /posts/{id} 기존 게시글 수정
+export const updatePost = async (postId, postData) => {
+  const response = await client.put(`/posts/${postId}`, postData);
+  return response.data;
+};
+
+// DELETE /posts/{id} 게시글 삭제
+export const deletePost = async (postId) => {
+  await client.delete(`/posts/${postId}`);
 };

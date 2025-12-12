@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; 
 import { fetchPosts } from "../api/boardApi";
 import "../css/Board.css";
-
+import { formatDateTime } from "../utils/dateFormat";
 
 const Board = () => {
   // 상태값
@@ -69,7 +69,7 @@ const Board = () => {
             <input
               className="board-search__input"
               type="text"
-              placeholder="검색어를 입력하세요"
+              placeholder="검색어를 입력하세요(제목, 내용)"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
             />
@@ -85,7 +85,7 @@ const Board = () => {
             className="board-button board-button--solid"
             onClick={() => navigate("/post/add")}
           >
-            새 글 작성
+            + 새 글 작성
           </button>
         </div>
 
@@ -117,7 +117,7 @@ const Board = () => {
                     <td>{post.id}</td>
                     <td className="board-table__title-cell">{post.title}</td>
                     <td>{post.writer}</td>
-                    <td>{post.createdAt}</td>
+                    <td>{formatDateTime(post.createdAt)}</td>
                   </tr>
                 ))
               )}

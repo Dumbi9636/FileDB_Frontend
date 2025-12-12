@@ -1,7 +1,8 @@
 // src/pages/BoardDetail.jsx
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { fetchPostById } from "../api/boardApi";
+import { fetchPostById, deletePost } from "../api/boardApi";
+import { formatDateTime } from "../utils/dateFormat";
 import "../css/BoardDetail.css"; 
 
 
@@ -15,19 +16,7 @@ const BoardDetail = () => {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  // 날짜 포맷 함수
-  const formatDate = (value) => {
-    if (!value) return "";
-    return new Date(value).toLocaleString("ko-KR", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
-
+  const [isDeleting, setIsDeleting] = useState(false); 
 
   // 렌더링 시점에 가져올 데이터
   useEffect(() => {
@@ -73,6 +62,29 @@ const BoardDetail = () => {
     }
   };
 
+  // 게시글 수정
+  const handleClickEdit = () => {
+    // 나중에 /post/edit/:id 페이지 만들 때 연결
+    navigate(`/post/edit/${post.id}`);
+  };
+  const handleClickDelete = async () => {
+    const isConfirmed = window.confirm("정말 이 게시글을 삭제하시겠습니까?");
+    if (!isConfirmed) {
+      return;
+    }
+
+    try {
+      setIsDeleting(true);
+      await deletePost(post.id);
+      alert("게시글이 삭제되었습니다.");
+      navigate("/"); // 삭제 후 게시판 목록으로 이동  
+    } catch (err) {
+      console.error(err);
+      alert("게시글 삭제에 실패했습니다. 다시 시도해 주세요.");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
 
 
@@ -95,12 +107,12 @@ const BoardDetail = () => {
           </span>
 
           <span className="post-detail__meta-divider">·</span>
-          <span>작성일: {formatDate(post.createdAt)}</span>
+          <span>작성일: {formatDateTime(post.createdAt)}</span>
 
           {post.updatedAt && (
             <>
               <span className="post-detail__meta-divider">·</span>
-              <span>수정일: {formatDate(post.updatedAt)}</span>
+              <span>수정일: {formatDateTime(post.updatedAt)}</span>
             </>
           )}
         </div>
@@ -114,8 +126,28 @@ const BoardDetail = () => {
       {/* 버튼 */}
       <div className="post-detail__footer">
         <button
+          type="button"
+          className="post-detail__button post-detail__button--secondary"
+          onClick={handleClickEdit}
+          disabled={isDeleting}
+        >
+          수정
+        </button>
+
+        <button
+          type="button"
+          className="post-detail__button post-detail__button--danger"
+          onClick={handleClickDelete}
+          disabled={isDeleting}
+        >
+          삭제
+        </button>
+
+        <button
+          type="button"
           className="post-detail__button"
           onClick={() => navigate("/")}
+          disabled={isDeleting}
         >
           목록으로
         </button>
