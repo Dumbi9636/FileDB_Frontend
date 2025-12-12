@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { fetchPosts } from "../api/boardApi";
 import "../css/Board.css";
 import { formatDateTime } from "../utils/dateFormat";
+import { Link } from 'react-router-dom'
+
+
 
 const Board = () => {
   // 상태값
@@ -52,6 +55,12 @@ const Board = () => {
     if (page < totalPages - 1) load({ page: page + 1 });
   };
 
+  // Board 탭 클릭 시: 검색어/페이지 초기화 + 목록 다시 로딩
+  const handleClickBoardNav = () => {
+    setKeyword("");
+    setPage(0);
+    load({ page: 0, keyword: "" });
+  };
 
   if (loading) return <p>로딩중...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
@@ -61,6 +70,11 @@ const Board = () => {
     <div className="board-page">
       <h1 className="ms-4">FileDB Board</h1>
       <hr />
+      <nav style={{ display: "flex", gap: "20px", marginBottom: "16px" }}>
+        <Link to="/" onClick={handleClickBoardNav}>[Board]</Link>
+        {/* 관리자용 메뉴 (관리자 로그인 등 구현하게되면 나중에 숨기기 / 권한 체크) */}
+        <Link to="/admin/images/cleanup">[이미지 파일 정리]</Link>
+      </nav>
       <br />
       <div className="board-page__inner">
         {/* 상단 검색 + 새 글 버튼 영역 */}
