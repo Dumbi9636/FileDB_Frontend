@@ -12,7 +12,7 @@ const AdminImageCleanup = () => {
 
   const handleClickCleanup = async () => {
     const confirmed = window.confirm(
-      "고아 이미지를 정리합니다.\n(게시글에서 사용 중인 이미지는 삭제되지 않습니다.)\n정말 실행하시겠습니까?"
+      "삭제된 글의 이미지를 정리합니다.\n(게시글에서 사용 중인 이미지는 삭제되지 않습니다.)\n정말 실행하시겠습니까?"
     );
 
     if (!confirmed) {
@@ -103,11 +103,11 @@ const AdminImageCleanup = () => {
                   <td>{result.referencedImageCount}</td>
                 </tr>
                 <tr>
-                  <th>고아 이미지 수</th>
+                  <th>사용하지 않는 이미지 수</th>
                   <td>{result.orphanImageCount}</td>
                 </tr>
                 <tr>
-                  <th>삭제된 파일 목록</th>
+                  <th>삭제된 이미지 파일 목록</th>
                   <td>
                     {result.deletedFileNames.length === 0 ? (
                       <span>삭제된 파일이 없습니다.</span>
